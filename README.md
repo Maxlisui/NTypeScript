@@ -1,5 +1,5 @@
 
-# NTypeScript / TypeScript.NET
+# TypeScript.NET
 
 A C#/.NET wrapper for TypeScript
 
@@ -54,3 +54,5 @@ myProgram.sayHello();
             await jsExecutor.ExecuteAsync(transpiledHelloWorldScript);
         }
 ```
+
+Copyright (c) 2016 Nihal Talur, 0xFireball, IridiumIon Software
