@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>NTypeScript/TypeScript.NET by 0xFireball</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">NTypeScript/TypeScript.NET</h1>
+      <h2 class="project-tagline">A C# wrapper for TypeScript - Compile TypeScript from C#, embed the TypeScript compiler in your .NET apps</h2>
+      <a href="https://github.com/0xFireball/NTypeScript" class="btn">View on GitHub</a>
+      <a href="https://github.com/0xFireball/NTypeScript/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/0xFireball/NTypeScript/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="ntypescript--typescriptnet" class="anchor" href="#ntypescript--typescriptnet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NTypeScript / TypeScript.NET</h1>
+
+<p>A C#/.NET wrapper for TypeScript</p>
+
+<p>License: MIT</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Compile TypeScript from C#</li>
+<li>Execute compiled JavaScript with built-in JurassicJS Engine</li>
+<li>Asynchronous API</li>
+<li>Can run latest TypeScript version</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<div class="highlight highlight-source-cs"><pre>        <span class="pl-k">private</span> <span class="pl-k">static</span> <span class="pl-k">async</span> Task MainAsync()
+        {
+            <span class="pl-c">//Create a new Compiler instance (it has yet to be initialized)</span>
+            <span class="pl-k">var</span> compiler = <span class="pl-k">new</span> TypeScriptCompiler();
+            Console.WriteLine(<span class="pl-s"><span class="pl-pds">"</span>Compiling compiler...<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c">//InitializeCompilerAsync() loads the compiler from a resource</span>
+            <span class="pl-c">//and compiles it. This is relatively resource expensive; it can</span>
+            <span class="pl-c">//take a few seconds to compile the TypeScript compiler and</span>
+            <span class="pl-c">//quite a few MB of RAM.</span>
+            <span class="pl-c">//Right now, NTypeScript uses JurassicJS as its engine, because</span>
+            <span class="pl-c">//Jurassic compiles to IL code.</span>
+            <span class="pl-c">//Once the compiler is compiled, the compiler can be used to compile</span>
+            <span class="pl-c">//TypeScript.</span>
+            <span class="pl-k">await</span> compiler.InitializeCompilerAsync();
+            <span class="pl-k">string</span> helloWorldScript = @<span class="pl-s"><span class="pl-pds">"</span></span>
+<span class="pl-s">class RandomProgram {</span>
+<span class="pl-s">    sayHello() {</span>
+<span class="pl-s">        console.log(<span class="pl-pds">"</span><span class="pl-pds">"</span>Hello, World!<span class="pl-pds">"</span><span class="pl-pds">"</span>);</span>
+<span class="pl-s">    }</span>
+<span class="pl-s">}</span>
+<span class="pl-s">let myProgram = new RandomProgram();</span>
+<span class="pl-s">myProgram.sayHello();</span>
+<span class="pl-s"><span class="pl-pds">"</span></span>;
+            Console.WriteLine(<span class="pl-s"><span class="pl-pds">"</span>Compiling Hello World script...<span class="pl-pds">"</span></span>);
+
+            <span class="pl-c">//This will compile the script with the compiler that was</span>
+            <span class="pl-c">//compiled earlier. This isn't too resource intensive, but</span>
+            <span class="pl-c">//takes about the same amount of time as the normal TypeScript</span>
+            <span class="pl-c">//compiler running in Node.JS</span>
+            <span class="pl-k">var</span> transpiledHelloWorldScript = <span class="pl-k">await</span> compiler.CompileAsync(helloWorldScript);
+            Console.WriteLine(transpiledHelloWorldScript);
+
+            <span class="pl-c">//Run the script</span>
+            <span class="pl-k">var</span> jsExecutor = <span class="pl-k">new</span> JavaScriptExecutor();
+            jsExecutor.EnableConsoleApi();
+            <span class="pl-k">await</span> jsExecutor.ExecuteAsync(transpiledHelloWorldScript);
+        }</pre></div>
+
+<p>Copyright (c) 2016 Nihal Talur, 0xFireball, IridiumIon Software</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/0xFireball/NTypeScript">NTypeScript/TypeScript.NET</a> is maintained by <a href="https://github.com/0xFireball">0xFireball</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
