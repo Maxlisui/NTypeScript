@@ -1,5 +1,5 @@
 
-# TypeScript.NET
+# NTypeScript / TypeScript.NET
 
 A C#/.NET wrapper for TypeScript
 
