@@ -28,20 +28,28 @@ namespace IridiumIon.NTypeScript
         {
             //Load the compiler
             var compilerSourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("IridiumIon.NTypeScript.Resources.typescriptServices.js");
-            var compilerSource = string.Empty;
-            using (compilerSourceStream)
-            {
-                using (var sourceReader = new StreamReader(compilerSourceStream))
-                {
-                    compilerSource = sourceReader.ReadToEnd();
-                }
-            }
+            var compilerSource = ReadStream(compilerSourceStream);
             //Compile the compiler
             //TypeScriptCompilerScript = JSEngine.Compile(new StringScriptSource(compilerSource));
             JSEngine.Evaluate(new StringScriptSource(compilerSource));
-            //Add a utility function to allow transpilation
-            string transpilerBootstrap = "function tsTranspile(source) { return ts.transpile(source); }";
-            JSEngine.Evaluate(transpilerBootstrap);
+
+            //Load bootstrap
+            var bootstrapSourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("IridiumIon.NTypeScript.Resources.nTypescriptBootstrap.js");
+            var bootstrapSource = ReadStream(bootstrapSourceStream);
+            JSEngine.Evaluate(bootstrapSource);
+        }
+
+        public string ReadStream(Stream stream)
+        {
+            var value = string.Empty;
+            using (stream)
+            {
+                using (var sourceReader = new StreamReader(stream))
+                {
+                    value = sourceReader.ReadToEnd();
+                }
+            }
+            return value;
         }
 
         /// <summary>

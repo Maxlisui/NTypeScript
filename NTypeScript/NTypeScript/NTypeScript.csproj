@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="JavaScriptExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Resources\nTypescriptBootstrap.js" />
     <Compile Include="TypeScriptCompiler.cs" />
   </ItemGroup>
   <ItemGroup>
