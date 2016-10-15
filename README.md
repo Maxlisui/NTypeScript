@@ -3,6 +3,15 @@
 
 A C#/.NET wrapper for TypeScript
 
+License: MIT
+
+## Features
+
+- Compile TypeScript from C#
+- Execute compiled JavaScript with built-in JurassicJS Engine
+- Asynchronous API
+- Can run latest TypeScript version
+
 ## Usage
 
 ```csharp
