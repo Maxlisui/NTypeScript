@@ -57,13 +57,5 @@ namespace IridiumIon.NTypeScript
         {
             return JSEngine.CallGlobalFunction<string>("tsTranspile", source);
         }
-
-        /// <summary>
-        /// Injects a Console implementation into the script engine. This allows the use of console.log() and more...
-        /// </summary>
-        public void EnableConsoleApi()
-        {
-            JSEngine.SetGlobalValue("console", new Jurassic.Library.FirebugConsole(JSEngine));
-        }
     }
 }

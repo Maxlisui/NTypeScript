@@ -28,7 +28,7 @@ namespace NTypeScript.Demo
             await compiler.InitializeCompilerAsync();
             string helloWorldScript = @"
 class RandomProgram {
-    public void sayHello() {
+    sayHello() {
         console.log(""Hello, World!"");
     }
 }
@@ -41,8 +41,13 @@ myProgram.sayHello();
             //compiled earlier. This isn't too resource intensive, but
             //takes about the same amount of time as the normal TypeScript
             //compiler running in Node.JS
-            var compiledScript = compiler.Compile(helloWorldScript);
-            Console.WriteLine(compiledScript);
+            var transpiledHelloWorldScript = compiler.Compile(helloWorldScript);
+            Console.WriteLine(transpiledHelloWorldScript);
+
+            //Run the script
+            var jsExecutor = new JavaScriptExecutor();
+            jsExecutor.EnableConsoleApi();
+            jsExecutor.Execute(transpiledHelloWorldScript);
         }
     }
 }
