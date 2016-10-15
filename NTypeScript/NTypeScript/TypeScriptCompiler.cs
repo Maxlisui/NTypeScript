@@ -63,7 +63,10 @@ namespace IridiumIon.NTypeScript
 
         public string Compile(string source)
         {
-            return JSEngine.CallGlobalFunction<string>("tsTranspile", source);
+            var transpileResult = JSEngine.CallGlobalFunction("tsTranspile", source);
+            var outputCode = JSEngine.CallGlobalFunction<string>("getTranspileResultCode", transpileResult);
+            //var outputDiagnostics = JSEngine.CallGlobalFunction<string>("getTranspileResultDiagnostics", transpileResult);
+            return outputCode;
         }
 
         public async Task<string> CompileAsync(string source)
