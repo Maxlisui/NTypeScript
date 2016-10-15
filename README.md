@@ -6,7 +6,7 @@ A C#/.NET wrapper for TypeScript
 ## Usage
 
 ```csharp
-		private static async Task MainAsync()
+        private static async Task MainAsync()
         {
             //Create a new Compiler instance (it has yet to be initialized)
             var compiler = new TypeScriptCompiler();
@@ -36,12 +36,12 @@ myProgram.sayHello();
             //compiled earlier. This isn't too resource intensive, but
             //takes about the same amount of time as the normal TypeScript
             //compiler running in Node.JS
-            var transpiledHelloWorldScript = compiler.Compile(helloWorldScript);
+            var transpiledHelloWorldScript = await compiler.CompileAsync(helloWorldScript);
             Console.WriteLine(transpiledHelloWorldScript);
 
             //Run the script
             var jsExecutor = new JavaScriptExecutor();
             jsExecutor.EnableConsoleApi();
-            jsExecutor.Execute(transpiledHelloWorldScript);
+            await jsExecutor.ExecuteAsync(transpiledHelloWorldScript);
         }
 ```

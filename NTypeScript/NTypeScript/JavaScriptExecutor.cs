@@ -1,4 +1,5 @@
 ﻿using Jurassic;
+using System.Threading.Tasks;
 
 namespace IridiumIon.NTypeScript
 {
@@ -28,9 +29,19 @@ namespace IridiumIon.NTypeScript
             return JSEngine.Evaluate<T>(expression);
         }
 
+        public async Task<T> EvaluteAsync<T>(string expression)
+        {
+            return await Task.Run(() => EvaluteAsync<T>(expression));
+        }
+
         public void Execute(string code)
         {
             JSEngine.Execute(code);
+        }
+
+        public async Task ExecuteAsync(string code)
+        {
+            await Task.Run(() => Execute(code));
         }
     }
 }

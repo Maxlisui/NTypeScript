@@ -41,13 +41,13 @@ myProgram.sayHello();
             //compiled earlier. This isn't too resource intensive, but
             //takes about the same amount of time as the normal TypeScript
             //compiler running in Node.JS
-            var transpiledHelloWorldScript = compiler.Compile(helloWorldScript);
+            var transpiledHelloWorldScript = await compiler.CompileAsync(helloWorldScript);
             Console.WriteLine(transpiledHelloWorldScript);
 
             //Run the script
             var jsExecutor = new JavaScriptExecutor();
             jsExecutor.EnableConsoleApi();
-            jsExecutor.Execute(transpiledHelloWorldScript);
+            await jsExecutor.ExecuteAsync(transpiledHelloWorldScript);
         }
     }
 }
