@@ -1,4 +1,7 @@
-﻿using Jurassic;
+﻿#pragma warning disable IDE0073 // The file header is missing or not located at the top of the file
+using Jurassic;
+using System;
+#pragma warning restore IDE0073 // The file header is missing or not located at the top of the file
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -21,24 +24,29 @@ namespace IridiumIon.NTypeScript
             JSEngine = new ScriptEngine();
         }
 
+
         /// <summary>
         /// Compiles the TypeScript compiler
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "Not my Stuff")]
         public void InitializeCompiler()
         {
             //Load the compiler
-            var compilerSourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("IridiumIon.NTypeScript.Resources.typescriptServices.js");
+            FileInfo fi = new FileInfo(Path.Combine(Assembly.GetExecutingAssembly().Location));
+
+            var compilerSourceStream = File.OpenRead(Path.Combine(fi.Directory.FullName, "Resources", "typescriptServices.js"));
             var compilerSource = ReadStream(compilerSourceStream);
             //Compile the compiler
             //TypeScriptCompilerScript = JSEngine.Compile(new StringScriptSource(compilerSource));
             JSEngine.Evaluate(new StringScriptSource(compilerSource));
 
             //Load bootstrap
-            var bootstrapSourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("IridiumIon.NTypeScript.Resources.nTypescriptBootstrap.js");
+            var bootstrapSourceStream = File.OpenRead(Path.Combine(fi.Directory.FullName, "Resources", "nTypescriptBootstrap.js"));
             var bootstrapSource = ReadStream(bootstrapSourceStream);
             JSEngine.Evaluate(bootstrapSource);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "Not my Stuff")]
         public string ReadStream(Stream stream)
         {
             var value = string.Empty;
@@ -61,6 +69,7 @@ namespace IridiumIon.NTypeScript
             await Task.Run(() => InitializeCompiler());
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "Not my Stuff")]
         public string Compile(string source)
         {
             var transpileResult = JSEngine.CallGlobalFunction("tsTranspile", source);
